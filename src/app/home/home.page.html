@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>APP DO AGENTE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" *ngFor="let card of appPages">
+          <app-card-menu [title]="card.title" [icon]="card.icon" [url]="card.url"></app-card-menu>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>
+
