@@ -1,0 +1,8 @@
+{
+  "name": "mpo-digital",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "b39b4cd9"
+}
