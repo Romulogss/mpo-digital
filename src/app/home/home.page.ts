@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../service/auth.service";
+import {LoadingController} from "@ionic/angular";
 
 @Component({
   selector: 'app-home',
@@ -6,8 +8,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
   public appPages = [
+
     {title: 'Carteira', url: '/folder/inbox', icon: 'person-sharp'},
     {title: 'Agenda', url: '/folder/outbox', icon: 'calendar-sharp'},
     {title: 'Nova Proposta', url: '/folder/favorites', icon: 'documents-sharp'},
@@ -17,10 +19,12 @@ export class HomePage implements OnInit {
     {title: 'Sincronização', url: '/folder/spam', icon: 'sync-sharp'},
   ];
 
-  constructor() {
+  constructor(
+    public authService: AuthService
+  ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
   }
 
 }

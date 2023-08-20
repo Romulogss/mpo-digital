@@ -1,8 +1,8 @@
 export interface UserInterface {
-  nome: string;
-  cpf: string;
-  cdUsu: string;
-  token: string;
-  uuid: string;
-  expToken: number;
+  uuid: string
+  exp: number
+  nome: string
+  provisoria: string
+  token?: string
+  cdUsu?: string
 }

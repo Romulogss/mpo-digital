@@ -1,0 +1,73 @@
+<ion-content>
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <header>
+            <p class="loginMsg">Seja bem-vindo(a) ao <br>
+              <span class="boldLoginMsg">Sistema do Programa de Microcrédito
+        Produtivo e Orientado - Ceará Credi</span></p>
+            <p class="mpo-digital-adece">MPO DIGITAL - ADECE</p>
+          </header>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <main>
+            <ion-card class="loginCardWpe">
+
+              <h2 class="loginCardTitulo">{{esqueceuSenha ? 'Recuperação de Senha' : 'Login'}}</h2>
+
+
+              <form class="loginFormWpe" [formGroup]="loginForm" (ngSubmit)="doLogin()">
+                <ion-input class="loginCardInput" type="text" formControlName="login"
+                           placeholder="Usuário"></ion-input>
+                <ion-input *ngIf="!esqueceuSenha" class="loginCardInput" type="password" formControlName="password"
+                           placeholder="Senha"></ion-input>
+                <ion-input class="loginCardInput" type="tel" formControlName="cpf"
+                           placeholder="C.P.F" *ngIf="esqueceuSenha"></ion-input>
+
+                <div *ngIf="!esqueceuSenha">
+                  <div class="button-bar">
+                    <button class="loginCardBtn" [class.disable]="loginForm.invalid" block type="submit" [disabled]="loginForm.invalid">Entrar</button>
+                  </div>
+                  <br>
+                  <div class="button-bar">
+                    <button class="loginCardBtn" block type="button"
+                            (click)="goToForgotPassword()">Esqueceu a senha</button>
+                  </div>
+                </div>
+
+                <div *ngIf="esqueceuSenha">
+                  <div class="button-bar">
+                    <button class="loginCardBtn" block type="button"
+                            (click)="solicitarSenhaProvisoria()"
+                            [disabled]="loginForm.invalid">Solicitar nova senha.</button>
+                  </div>
+                  <br>
+                  <div class="button-bar">
+                    <button class="loginCardBtn" block type="button"
+                            (click)="cancelarSolicitacaoNovaSenha()">Cancelar.</button>
+                  </div>
+                </div>
+              </form>
+
+            </ion-card>
+          </main>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <footer>
+            <div class="logos">
+              <img class="logoCearaCredi" src="./assets/images/logo_ceara_credi.png" alt="Logo Ceará Credi"/>
+              <img class="logoAdece" src="./assets/images/adece_logo.png" alt="Logo ADECE"/>
+            </div>
+          </footer>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

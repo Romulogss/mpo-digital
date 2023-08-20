@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {AuthService} from "./service/auth.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -6,13 +8,25 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+    {title: 'Início', url: '', icon: 'home'},
+    {title: 'Carteira', url: '/folder/inbox', icon: 'person-sharp'},
+    {title: 'Agenda', url: '/folder/outbox', icon: 'calendar-sharp'},
+    {title: 'Nova Proposta', url: '/folder/favorites', icon: 'documents-sharp'},
+    {title: 'Área de Atuação', url: '/folder/archived', icon: 'navigate-circle-sharp'},
+    {title: 'Simulação', url: '/folder/trash', icon: 'cash-sharp'},
+    {title: 'Relatórios', url: '/folder/trash', icon: 'newspaper-sharp'},
+    {title: 'Sincronização', url: '/folder/spam', icon: 'sync-sharp'},
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.authService.isAutenticate().then(ativo => {
+      if (ativo) {
+        this.router.navigate(['/home'])
+      } else {
+        this.router.navigate(['/'])
+      }
+    })
+  }
 }
