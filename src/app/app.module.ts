@@ -13,6 +13,7 @@ import {AuthService} from "./service/auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {LoginPage} from "./login/login.page";
+import "reflect-metadata";
 
 @NgModule({
   declarations: [AppComponent, LoginPage],
