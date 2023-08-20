@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CredentialInterface} from "../../models/interfaces/credential.interface";
 import {AuthService} from "../service/auth.service";
-import {Router} from "@angular/router";
+import {RotasService} from "../service/rotas.service";
 
 @Component({
   selector: 'app-login',
@@ -15,11 +15,12 @@ export class LoginPage implements OnInit {
   public loginForm: FormGroup = new FormGroup<any>({});
   public login: CredentialInterface = {
     login: null!,
-    password: null!
+    password: null!,
+    cpf: null!,
   };
 
   constructor(
-    private router: Router,
+    private rotaService: RotasService,
     private authService: AuthService
   ) {
     this.loginForm = new FormGroup({
@@ -30,9 +31,6 @@ export class LoginPage implements OnInit {
   }
 
   async ngOnInit() {
-    if (await this.authService.isAutenticate()) {
-      await this.router.navigate(['/home'])
-    }
   }
 
   doLogin() {
@@ -41,7 +39,7 @@ export class LoginPage implements OnInit {
     delete this.login.cpf
     this.authService.realizarLogin(this.login)
       .subscribe((user) => {
-        this.router.navigate(['/home'])
+        this.rotaService.irPara('/home')
       })
   }
 
@@ -52,7 +50,9 @@ export class LoginPage implements OnInit {
   }
 
   solicitarSenhaProvisoria() {
-
+    this.login = this.loginForm.value as CredentialInterface;
+    //@ts-ignore
+    delete this.login.password
   }
 
   cancelarSolicitacaoNovaSenha() {
