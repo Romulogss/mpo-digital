@@ -14,7 +14,11 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "customWebpackConfig": {
-              "path": "./custom.webpack.config.js"
+              "path": "./custom.webpack.config.js",
+              "mergeRules": {
+                "plugins": "append"
+              },
+              "replaceDuplicatePlugins": false
             },
             "outputPath": "www",
             "index": "src/index.html",
@@ -32,15 +36,18 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
+              },
+              {
+                "glob": "**/*.wasm",
+                "input": "node_modules/sql.js/dist/",
+                "output": "./"
               }
             ],
             "styles": [
               "src/theme/variables.scss",
               "src/global.scss"
             ],
-            "scripts": [],
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -76,7 +83,7 @@
               "progress": false
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",

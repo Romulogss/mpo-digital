@@ -1,4 +1,4 @@
-import {NgModule, isDevMode} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 
@@ -14,7 +14,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {LoginPage} from "./login/login.page";
 import "reflect-metadata";
-import { ServiceWorkerModule } from '@angular/service-worker';
+import {DatabaseProvider} from "../utils/database";
 
 @NgModule({
   declarations: [AppComponent, LoginPage],
@@ -26,14 +26,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HttpClientModule,
     HomePageModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
   ],
-  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, EnvService, AuthService],
+  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, EnvService, AuthService, DatabaseProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {

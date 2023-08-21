@@ -1,16 +1,18 @@
 import {Platform} from "@ionic/angular";
 import {Injectable} from "@angular/core";
 import {Device} from "@capacitor/device";
-import {createConnection} from "typeorm";
-import {DataSource} from "typeorm/browser";
+import {DataSource} from "typeorm";
 import {Assessor} from "../models/entidades/assessor";
+import {MensagemService} from "../app/service/mensagem.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class DatabaseProvider {
 
-  constructor() {
+  constructor(
+    private msgService: MensagemService
+  ) {
   }
 
   async configurarDatabase(platform: Platform) {
@@ -20,22 +22,6 @@ export class DatabaseProvider {
     if (platform.is('cordova')) {
       // Running on device or emulator
       console.log('Platform Cordova');
-      try {
-        await createConnection({
-          type: 'cordova',
-          database: 'teste19',
-          location: 'default',
-          logging: ['error', 'query', 'schema'],
-          synchronize: true,
-          extra: {
-            key: UDID
-          },
-          entities: [
-          ]
-        });
-      } catch (error) {
-        console.log(error);
-      }
     } else {
       // Running app in browser
       console.log('Platform Browser');
@@ -53,6 +39,10 @@ export class DatabaseProvider {
         })
         AppDataSource.initialize().then(r => {
           console.log(r)
+          this.msgService.showAlertMensagem('Sucesso')
+        }).catch(err => {
+          this.msgService.showAlertMensagem('Erro')
+          console.log(err)
         })
       } catch (error) {
         console.log(error);
