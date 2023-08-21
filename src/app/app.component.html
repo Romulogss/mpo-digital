@@ -9,7 +9,11 @@
           <ion-list-header>Menu</ion-list-header>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="lines" detail="false" routerLinkActive="selected">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="lines" detail="false" routerLinkActive="selected" *ngIf="p.title !== 'Sair'">
+              <ion-icon aria-hidden="true" slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+            <ion-item lines="lines" detail="false" *ngIf="p.title === 'Sair'" (click)="sair()">
               <ion-icon aria-hidden="true" slot="start" [name]="p.icon"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>

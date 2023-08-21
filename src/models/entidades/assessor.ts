@@ -18,7 +18,7 @@ export class Assessor {
   token: string;
 
   @Column({name: "dt_exp_token", nullable: true})
-  expToken: number;
+  exp: number;
 
   @Column({name: 'cd_usu', nullable: true})
   cdUsu: string;
@@ -37,13 +37,13 @@ export class Assessor {
   senhaProvisoria: boolean;
 
 
-  constructor(id: number, nome: string, cpf: string, token: string, expToken: number, cdUsu: string, uuid: string,
+  constructor(id: number, nome: string, cpf: string, token: string, exp: number, cdUsu: string, uuid: string,
               ultimaAtualizacao: number, sincronizado: boolean, senhaProvisoria: boolean) {
     this.id = id;
     this.nome = nome;
     this.cpf = cpf;
     this.token = token;
-    this.expToken = expToken;
+    this.exp = exp;
     this.cdUsu = cdUsu;
     this.uuid = uuid;
     this.ultimaAtualizacao = ultimaAtualizacao;

@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {MenuItemInterface} from "../../models/interfaces/menu-item.interface";
 import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
-import {MensagemService} from "./mensagem.service";
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +29,12 @@ export class RotasService {
     {title: 'Simulação', url: '/folder/trash', icon: 'cash-sharp', showInCardMenu: true, showInSideMenu: true},
     {title: 'Relatórios', url: '/folder/trash', icon: 'newspaper-sharp', showInCardMenu: true, showInSideMenu: true},
     {title: 'Sincronização', url: '/folder/spam', icon: 'sync-sharp', showInCardMenu: true, showInSideMenu: true},
+    {title: 'Sair', url: '', icon: 'power-sharp', showInCardMenu: false, showInSideMenu: true},
   ]
 
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private msgService: MensagemService
+    private authService: AuthService
   ) {
   }
 
@@ -60,5 +59,10 @@ export class RotasService {
         this.router.navigate(['/'])
       }
     })
+  }
+
+  public async sair() {
+    await this.authService.logout();
+    this.irParaTelaInicial()
   }
 }

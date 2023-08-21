@@ -16,7 +16,7 @@ import {AssessorService} from "./assessor.service";
 })
 export class AuthService {
 
-  public usuarioLogado: UserInterface = null!;
+  public usuarioLogado: Assessor = null!;
 
   constructor(
     private http: HttpClient,
@@ -28,18 +28,18 @@ export class AuthService {
 
   public realizarLogin(login: CredentialInterface) {
     this.msgService.showLoading('Realizando login...', 'auth-load')
-    return new Observable<UserInterface>((observable) => {
+    return new Observable<Assessor>((observable) => {
       this._realizarLogin(login).subscribe(token => {
-        this.usuarioLogado = AuthService.decodeToken(token!);
-        this.usuarioLogado.token = token;
+        const usuarioResponse = AuthService.decodeToken(token!);
+        usuarioResponse.token = token;
         this.assessorService.salvar(new Assessor(
           null!,
-          this.usuarioLogado.nome,
+          usuarioResponse.nome,
           '',
-          this.usuarioLogado.token,
-          this.usuarioLogado.exp,
+          usuarioResponse.token,
+          usuarioResponse.exp,
           login.login,
-          this.usuarioLogado.uuid,
+          usuarioResponse.uuid,
           new Date().valueOf(),
           false,
           false
@@ -48,6 +48,7 @@ export class AuthService {
             key: '@cdUsu',
             value: login.login
           })
+          this.usuarioLogado = a;
           observable.next(this.usuarioLogado)
           observable.complete()
         }).catch(err => {
@@ -73,7 +74,8 @@ export class AuthService {
           })
             .then(assessor => {
               if (assessor) {
-                ativo = new Date(assessor[0].expToken) >= new Date();
+                ativo = new Date(assessor[0].exp) >= new Date();
+                this.usuarioLogado = assessor[0];
               } else {
                 ativo = false
               }
@@ -87,6 +89,11 @@ export class AuthService {
       }
       resolve(ativo);
     })
+  }
+
+  public async logout() {
+    this.usuarioLogado = null!;
+    await Preferences.clear();
   }
 
 
@@ -125,7 +132,7 @@ export class AuthService {
   private getHttpHeadersJson(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'token'
+      'Authorization': this.usuarioLogado.token
     });
   }
 

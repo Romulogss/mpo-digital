@@ -25,4 +25,8 @@ export class AppComponent {
       })
     })
   }
+
+  public sair() {
+    this.rotaService.sair();
+  }
 }
