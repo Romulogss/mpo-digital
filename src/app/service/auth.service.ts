@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, observable, Observable, of, tap} from "rxjs";
+import {catchError, Observable, of, tap} from "rxjs";
 import {EnvService} from "./env.service";
 import {CredentialInterface} from "../../models/interfaces/credential.interface";
 import jwtDecode from "jwt-decode";
@@ -8,6 +8,8 @@ import {UserInterface} from "../../models/interfaces/user.interface";
 import {TokenInterface} from "../../models/interfaces/token.interface";
 import {MensagemService} from "./mensagem.service";
 import {Preferences} from "@capacitor/preferences";
+import {Assessor} from "../../models/entidades/assessor";
+import {AssessorService} from "./assessor.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private env: EnvService,
-    private msgService: MensagemService
+    private msgService: MensagemService,
+    private assessorService: AssessorService
   ) {
   }
 
@@ -29,29 +32,61 @@ export class AuthService {
       this._realizarLogin(login).subscribe(token => {
         this.usuarioLogado = AuthService.decodeToken(token!);
         this.usuarioLogado.token = token;
-        Preferences.set({
-          key: '@user',
-          value: JSON.stringify(this.usuarioLogado)
+        this.assessorService.salvar(new Assessor(
+          null!,
+          this.usuarioLogado.nome,
+          '',
+          this.usuarioLogado.token,
+          this.usuarioLogado.exp,
+          login.login,
+          this.usuarioLogado.uuid,
+          new Date().valueOf(),
+          false,
+          false
+        )).then(async a => {
+          await Preferences.set({
+            key: '@cdUsu',
+            value: login.login
+          })
+          observable.next(this.usuarioLogado)
+          observable.complete()
+        }).catch(err => {
+          observable.error(err)
+          observable.complete()
         })
-        observable.next(this.usuarioLogado)
-        observable.complete()
       })
     })
   }
 
   public async isAutenticate(): Promise<boolean> {
-    if (!!this.usuarioLogado) {
-      if (this.usuarioLogado.exp == null) return false;
-      return new Date(this.usuarioLogado.exp) >= new Date();
-    } else {
-      const userStorage = (await Preferences.get({key: '@user'})).value;
-      if (userStorage == null || userStorage == '') {
-        return false;
+    return new Promise<boolean>(async (resolve) => {
+      let ativo = false;
+      if (!!this.usuarioLogado) {
+        if (this.usuarioLogado.exp == null) ativo = false;
+        ativo = new Date(this.usuarioLogado.exp) >= new Date()
+      } else {
+        const cdUsu = (await Preferences.get({key: '@cdUsu'})).value
+        if (cdUsu) {
+          await this.assessorService.buscarPor({
+            //@ts-ignore
+            cdUsu
+          })
+            .then(assessor => {
+              if (assessor) {
+                ativo = new Date(assessor[0].expToken) >= new Date();
+              } else {
+                ativo = false
+              }
+            }).catch(err => {
+              console.log(err)
+              ativo = false
+            })
+        } else {
+          ativo = false
+        }
       }
-      //@ts-ignore
-      this.usuarioLogado = JSON.parse(userStorage as string);
-      return new Date(this.usuarioLogado.exp) >= new Date();
-    }
+      resolve(ativo);
+    })
   }
 
 

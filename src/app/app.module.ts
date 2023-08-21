@@ -15,6 +15,7 @@ import {CommonModule} from "@angular/common";
 import {LoginPage} from "./login/login.page";
 import "reflect-metadata";
 import {DatabaseProvider} from "../utils/database";
+import {RotasService} from "./service/rotas.service";
 
 @NgModule({
   declarations: [AppComponent, LoginPage],
@@ -27,7 +28,10 @@ import {DatabaseProvider} from "../utils/database";
     HomePageModule,
     ReactiveFormsModule,
   ],
-  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, EnvService, AuthService, DatabaseProvider],
+  providers: [{
+    provide: RouteReuseStrategy,
+    useClass: IonicRouteStrategy
+  }, EnvService, AuthService, RotasService, DatabaseProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {

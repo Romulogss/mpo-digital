@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {MenuItemInterface} from "../../models/interfaces/menu-item.interface";
 import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
+import {MensagemService} from "./mensagem.service";
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,8 @@ export class RotasService {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private msgService: MensagemService
   ) {
   }
 

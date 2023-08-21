@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AlertController, IonAlert, LoadingController, ToastController} from "@ionic/angular";
+import {AlertController, LoadingController, ToastController} from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
@@ -42,21 +42,24 @@ export class MensagemService {
     })
   }
 
-  public showLoading(msg: string, id: string, duracao?: number) {
+  public async showLoading(msg: string, id?: string, duracao?: number) {
     this.loadCtrl.create({
       message: msg,
       id
-    }).then((load: HTMLIonLoadingElement) => {
+    }).then(async (load: HTMLIonLoadingElement) => {
       if (duracao) {
         load.duration = duracao
       }
-      load.present()
+      console.log('Iniciado load')
+      await load.present()
     })
   }
 
   public closeLoading(id?: string) {
     this.loadCtrl.dismiss({
       id
+    }).catch(err => {
+      console.log(err)
     })
   }
 

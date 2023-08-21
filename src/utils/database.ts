@@ -10,20 +10,20 @@ import {MensagemService} from "../app/service/mensagem.service";
 })
 export class DatabaseProvider {
 
+  //@ts-ignore
+  dataSource: DataSource = null!
+
   constructor(
-    private msgService: MensagemService
+    private msgService: MensagemService,
+    platform: Platform
   ) {
+    if (this.dataSource == null) {
+      this.configurarDatabase(platform)
+    }
   }
 
   async configurarDatabase(platform: Platform) {
-    // Depending on the machine the app is running on, configure
-    // different database connections
-    const UDID = await Device.getId()
-    if (platform.is('cordova')) {
-      // Running on device or emulator
-      console.log('Platform Cordova');
-    } else {
-      // Running app in browser
+    return new Promise<boolean>((resolve, reject) => {
       console.log('Platform Browser');
       try {
         const AppDataSource = new DataSource({
@@ -38,15 +38,17 @@ export class DatabaseProvider {
           migrations: []
         })
         AppDataSource.initialize().then(r => {
-          console.log(r)
-          this.msgService.showAlertMensagem('Sucesso')
+          this.dataSource = r
+          resolve(true)
         }).catch(err => {
           this.msgService.showAlertMensagem('Erro')
+          resolve(false)
           console.log(err)
         })
       } catch (error) {
+        resolve(false)
         console.log(error);
       }
-    }
+    })
   }
 }

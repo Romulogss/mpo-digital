@@ -10,17 +10,18 @@ import {DatabaseProvider} from "../utils/database";
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public appPages: MenuItemInterface[];
+  public appPages: MenuItemInterface[] = [];
+
   constructor(
-    private rotaService: RotasService,
     platform: Platform,
-    private dataBase: DatabaseProvider
+    private dataBase: DatabaseProvider,
+    private rotaService: RotasService,
   ) {
-    this.appPages = this.rotaService.sideMenu();
-    rotaService.irParaTelaInicial();
-    platform.ready().then(() => {
-      dataBase.configurarDatabase(platform).then(() => {
-        console.log('concluido')
+    platform.ready().then(async () => {
+      await dataBase.configurarDatabase(platform).then((res) => {
+        this.appPages = this.rotaService.sideMenu();
+        if (res)
+          rotaService.irParaTelaInicial();
       })
     })
   }
