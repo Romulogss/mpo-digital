@@ -1,4 +1,4 @@
-import {Column, Entity, OneToOne} from "typeorm";
+import {Column, Entity, OneToOne, Relation} from "typeorm";
 import {Carteira} from "./carteira";
 import {Synch, SynchType} from "../../utils/synch/synchronizable";
 import {SincronizavelAbstract} from "../../utils/synch/sincronizavel.entity.abstract";
@@ -35,8 +35,8 @@ export class Assessor extends SincronizavelAbstract {
   senhaProvisoria: boolean;
 
   @Synch(SynchType.ENTITY)
-  @OneToOne(type => Carteira, carteira => carteira.assessor, {cascade: true, nullable: true, eager: true})
-  carteira: Carteira = new Carteira();
+  @OneToOne(() => Carteira, carteira => carteira.assessor, {cascade: true, nullable: true, eager: true})
+  carteira: Relation<Carteira> = new Carteira();
 
 
   constructor(nome?: string, cpf?: string, token?: string, exp?: number, cdUsu?: string, uuid?: string,

@@ -1,5 +1,5 @@
 import {BaseEntity, FindOptionsWhere, Repository} from "typeorm";
-import {DatabaseProvider} from "../../utils/database";
+import {DatabaseProvider} from "../utils/database";
 
 export abstract class AbstractService<T extends BaseEntity> {
   protected repository: Repository<T> = null!;

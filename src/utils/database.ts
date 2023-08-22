@@ -1,9 +1,24 @@
 import {Platform} from "@ionic/angular";
 import {Injectable} from "@angular/core";
 import {DataSource} from "typeorm";
+import {MensagemService} from "../service/mensagem.service";
 import {Assessor} from "../models/entidades/assessor.entity";
-import {MensagemService} from "../app/service/mensagem.service";
 import {Carteira} from "../models/entidades/carteira";
+import {Cliente} from "../models/entidades/cliente";
+import {Telefone} from "../models/entidades/telefone";
+import {Localizacao} from "../models/entidades/localizacao";
+import {Conta} from "../models/entidades/conta";
+import {Renda} from "../models/entidades/renda";
+import {AvaliacaoPatrimonial} from "../models/entidades/avaliacaoPatrimonial";
+import {FluxoCaixa} from "../models/entidades/fluxoCaixa";
+import {ProdutoFluxoDeCaixa} from "../models/entidades/produtoFluxoDeCaixa.model";
+import {SituacaoSocioEconomica} from "../models/entidades/situacaoSocioEconomica";
+import {HistoricoAtendidmentoCliente} from "../models/entidades/historicoAtendimentoCliente.model";
+import {Arquivo} from "../models/entidades/arquivo";
+import {Identificacao} from "../models/entidades/identificacao";
+import {Ocupacao} from "../models/entidades/ocupacao";
+import {Sincronizacao} from "../models/entidades/sincronizacao";
+import {Referencia} from "../models/entidades/referencia";
 
 @Injectable({
   providedIn: "root"
@@ -23,7 +38,7 @@ export class DatabaseProvider {
   }
 
   async configurarDatabase(platform: Platform) {
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve) => {
       console.log('Platform Browser');
       try {
         const AppDataSource = new DataSource({
@@ -33,7 +48,9 @@ export class DatabaseProvider {
           synchronize: true,
           autoSave: true,
           entities: [
-            Assessor, Carteira
+            Arquivo, Assessor, Cliente, Identificacao, Conta, Telefone, Localizacao, Renda, Ocupacao, Carteira, FluxoCaixa,
+            AvaliacaoPatrimonial, Sincronizacao, SituacaoSocioEconomica, HistoricoAtendidmentoCliente, ProdutoFluxoDeCaixa,
+            Referencia
           ],
           migrations: []
         })

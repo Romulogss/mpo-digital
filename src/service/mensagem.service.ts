@@ -71,4 +71,14 @@ export class MensagemService {
       toast.present()
     })
   }
+
+  public apresentarMensagemSucesso() {
+    this.toastCtrl.create({
+      message: 'Realizado com sucesso!',
+      duration: 3000,
+      position: 'middle'
+    }).then((toast: HTMLIonToastElement) => {
+      toast.present()
+    })
+  }
 }

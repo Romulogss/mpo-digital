@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../service/auth.service";
-import {RotasService} from "../service/rotas.service";
+import {AuthService} from "../../service/auth.service";
+import {RotasService} from "../../service/rotas.service";
 import {MenuItemInterface} from "../../models/interfaces/menu-item.interface";
 
 @Component({

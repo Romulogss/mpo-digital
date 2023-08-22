@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RotasService} from "./service/rotas.service";
+import {RotasService} from "../service/rotas.service";
 import {MenuItemInterface} from "../models/interfaces/menu-item.interface";
 import {Platform} from "@ionic/angular";
 import {DatabaseProvider} from "../utils/database";

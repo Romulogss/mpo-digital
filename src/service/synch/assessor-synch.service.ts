@@ -1,5 +1,5 @@
-import {SynchronizableService} from "../../../utils/synch/synchronizable";
-import {Assessor} from "../../../models/entidades/assessor.entity";
+import {SynchronizableService} from "../../utils/synch/synchronizable";
+import {Assessor} from "../../models/entidades/assessor.entity";
 import {AssessorService} from "../assessor.service";
 import {Injectable} from "@angular/core";
 

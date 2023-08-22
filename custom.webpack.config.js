@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 
-console.log("Usando custom.webpack.config.ts")
+console.log("Usando custom.webpack.config.js")
 module.exports = {
   plugins: [
     new webpack.NormalModuleReplacementPlugin(/typeorm$/, function (result) {
@@ -18,6 +18,8 @@ module.exports = {
       net: false,
       tls: false,
       path: require.resolve("path-browserify"),
+      crypto: require.resolve("crypto-browserify"),
+      stream: require.resolve("stream-browserify"),
     }
   },
   optimization: {

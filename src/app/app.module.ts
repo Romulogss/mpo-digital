@@ -8,14 +8,14 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HomePageModule} from "./home/home.module";
 import {HttpClientModule} from "@angular/common/http";
-import {EnvService} from "./service/env.service";
-import {AuthService} from "./service/auth.service";
+import {EnvService} from "../service/env.service";
+import {AuthService} from "../service/auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {LoginPage} from "./login/login.page";
 import "reflect-metadata";
 import {DatabaseProvider} from "../utils/database";
-import {RotasService} from "./service/rotas.service";
+import {RotasService} from "../service/rotas.service";
 
 @NgModule({
   declarations: [AppComponent, LoginPage],

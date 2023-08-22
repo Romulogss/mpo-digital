@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CredentialInterface} from "../../models/interfaces/credential.interface";
-import {AuthService} from "../service/auth.service";
-import {RotasService} from "../service/rotas.service";
+import {AuthService} from "../../service/auth.service";
+import {RotasService} from "../../service/rotas.service";
 
 @Component({
   selector: 'app-login',

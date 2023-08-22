@@ -1,4 +1,4 @@
-import {Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Relation} from "typeorm";
 import {Assessor} from "./assessor.entity";
 import {BaseEntity} from "./base.entity";
 
@@ -7,7 +7,7 @@ export class Carteira extends BaseEntity {
 
   @OneToOne(() => Assessor)
   @JoinColumn({name: "id_assessor"})
-  assessor: Assessor | null;
+  assessor: Relation<Assessor> | null;
 
 
 }

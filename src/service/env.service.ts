@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {EnvironmentUrls} from "../../models/interfaces/environmentUrls.interface";
+import {EnvironmentUrls} from "../models/interfaces/environmentUrls.interface";
 
 @Injectable()
 export class EnvService {

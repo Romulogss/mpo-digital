@@ -1,13 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>carteira</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">carteira</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item class="ion-no-margin">
+    <ion-searchbar [(ngModel)]="filtro.nome" placeholder="Nome"></ion-searchbar>
+  </ion-item>
+  <ion-item>
+    <ion-searchbar [(ngModel)]="filtro.cpfCnpj"
+                   placeholder="CNPJ/CPF"></ion-searchbar>
+  </ion-item>
+  <ion-item>
+    <ion-searchbar [(ngModel)]="filtro.bairro" placeholder="Bairro"></ion-searchbar>
+  </ion-item>
+  <ion-item style="border-radius: 5px; margin-top: 3px;">
+    <ion-select [(ngModel)]="filtro.situacao" label-placement="floating" label="Situação"
+                cancelText="{{ 'Cancelar' }}" okText="{{ 'Confirmar' }}">
+      <ion-select-option [value]="null">{{'Todas'}}</ion-select-option>
+      <ion-select-option *ngFor="let situacao of situacoesCliente" [value]="situacao.nome">{{situacao.descricao}}</ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-content>

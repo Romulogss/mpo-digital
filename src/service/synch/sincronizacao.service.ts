@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FectchData, SynchEntityInfo} from "../../../utils/synch/synchronizable";
+import {FectchData, SynchEntityInfo} from "../../utils/synch/synchronizable";
 import {AssessorSynchService} from "./assessor-synch.service";
 import {EnvService} from "../env.service";
 import {AuthService} from "../auth.service";

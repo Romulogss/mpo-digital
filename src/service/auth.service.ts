@@ -2,13 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, of, tap} from "rxjs";
 import {EnvService} from "./env.service";
-import {CredentialInterface} from "../../models/interfaces/credential.interface";
+import {CredentialInterface} from "../models/interfaces/credential.interface";
 import jwtDecode from "jwt-decode";
-import {UserInterface} from "../../models/interfaces/user.interface";
-import {TokenInterface} from "../../models/interfaces/token.interface";
+import {UserInterface} from "../models/interfaces/user.interface";
+import {TokenInterface} from "../models/interfaces/token.interface";
 import {MensagemService} from "./mensagem.service";
 import {Preferences} from "@capacitor/preferences";
-import {Assessor} from "../../models/entidades/assessor.entity";
+import {Assessor} from "../models/entidades/assessor.entity";
 import {AssessorService} from "./assessor.service";
 
 @Injectable({

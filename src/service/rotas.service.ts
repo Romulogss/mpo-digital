@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MenuItemInterface} from "../../models/interfaces/menu-item.interface";
+import {MenuItemInterface} from "../models/interfaces/menu-item.interface";
 import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
 
@@ -10,7 +10,7 @@ export class RotasService {
 
   private appPages: MenuItemInterface[] = [
     {title: 'Início', url: '/home', icon: 'home', showInCardMenu: false, showInSideMenu: true},
-    {title: 'Carteira', url: '/folder/inbox', icon: 'person-sharp', showInCardMenu: true, showInSideMenu: true},
+    {title: 'Carteira', url: '/carteira', icon: 'person-sharp', showInCardMenu: true, showInSideMenu: true},
     {title: 'Agenda', url: '/folder/outbox', icon: 'calendar-sharp', showInCardMenu: true, showInSideMenu: true},
     {
       title: 'Nova Proposta',
