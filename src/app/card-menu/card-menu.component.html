@@ -1,8 +1,8 @@
-<ion-card [routerLink]="[url]" class="ion-no-padding ion-no-margin">
+<ion-card [routerLink]="[url]" class="ion-no-padding ion-no-margin ion-align-items-end">
   <ion-card-header>
     <ion-icon [name]="icon"></ion-icon>
   </ion-card-header>
-  <ion-card-content class="ion-justify-content-end">
-    <ion-card-title class="ion-text-wrap ion-align-self-end">{{ title }}</ion-card-title>
+  <ion-card-content class="ion-no-padding ion-align-items-end" style="margin-left: 2px; margin-top: 20%; height: 100%; max-height: 100%">
+    <ion-card-title class="ion-text-wrap ion-text-start">{{ title }}</ion-card-title>
   </ion-card-content>
 </ion-card>

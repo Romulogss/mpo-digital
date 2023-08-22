@@ -1,7 +1,36 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">sincronizacao</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card-content text-center>
+    <br/>
+    <ion-row>
+      <ion-col>
+          <span
+            *ngIf="exibirUltimaSincronizacao">Última Sincronização: {{ultimaSincronizacao.dtUltimaSincronizacao | date:'short'}}</span>
+        <ion-button expand="block" type="button" (click)="sincronizar()" color="light">
+          Sincronizar Dados Gerais
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let entidade of entidadesSincIndividual">
+      <ion-col>
+        <ion-button expand="block" (click)="mostrarModal(entidade)" [disabled]="disableButton"
+                color="light">
+          Sincronizar {{entidade.descricao}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-list *ngIf="logErro.length > 0">
+      <ion-item *ngFor="let log of logErro">
+        <ion-icon name="ios-checkmark-circle-outline" *ngIf="!log.erro" color="walkthrough" item-start></ion-icon>
+        <ion-icon name="ios-close-circle-outline" *ngIf="log.erro" style="color: #f4344f;" item-start></ion-icon>
+        <h2>{{ log.entidade }}</h2>
+        <p>Dados enviados: {{ log.enviado }}</p>
+        <p>Dados recebidos: {{ log.recebido }}</p>
+        <p *ngIf="log.entidade.toUpperCase() === 'CLIENTE' && log.pendente > 0" style="color: #f4344f;">Em
+          análise: {{ log.pendente }}</p>
+        <p *ngIf="log.erro">{{ log.msg }} (Código: {{ log.erro }})</p>
+      </ion-item>
+    </ion-list>
+
+  </ion-card-content>
 </ion-content>

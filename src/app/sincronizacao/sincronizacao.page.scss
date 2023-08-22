@@ -1,0 +1,36 @@
+.image-logo {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  width: 48px;
+  height: 32px;
+}
+
+ion-card {
+  text-align: left;
+}
+
+ion-card .header {
+  font-weight: bold;
+  color: red;
+}
+
+.list-header {
+  height: 10px !important;
+  text-align: left;
+  font-weight: bold;
+}
+
+.list-header .item-inner {
+  border-bottom: 3px solid #89bd9f !important;
+}
+
+.list-header .label-md {
+  margin: 0 !important;
+}
+
+.my-loading-class {
+  .loading-wrapper {
+    background: transparent;
+    box-shadow: none;
+  }
+}

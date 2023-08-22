@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
   <ion-title style="font-size: 1rem; margin-top: 10px">Bem-vindo(a) {{authService.usuarioLogado?.nome | titlecase }}</ion-title>
-  <ion-grid>
+  <ion-grid [fixed]="true">
     <ion-row>
       <ion-col size="4" *ngFor="let card of appPages">
         <app-card-menu [title]="card.title" [icon]="card.icon" [url]="card.url"></app-card-menu>

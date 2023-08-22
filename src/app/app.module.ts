@@ -11,7 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {EnvService} from "./service/env.service";
 import {AuthService} from "./service/auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {LoginPage} from "./login/login.page";
 import "reflect-metadata";
 import {DatabaseProvider} from "../utils/database";
@@ -19,15 +19,16 @@ import {RotasService} from "./service/rotas.service";
 
 @NgModule({
   declarations: [AppComponent, LoginPage],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    HttpClientModule,
-    HomePageModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        HttpClientModule,
+        HomePageModule,
+        ReactiveFormsModule,
+        NgOptimizedImage,
+    ],
   providers: [{
     provide: RouteReuseStrategy,
     useClass: IonicRouteStrategy
