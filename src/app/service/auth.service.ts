@@ -8,7 +8,7 @@ import {UserInterface} from "../../models/interfaces/user.interface";
 import {TokenInterface} from "../../models/interfaces/token.interface";
 import {MensagemService} from "./mensagem.service";
 import {Preferences} from "@capacitor/preferences";
-import {Assessor} from "../../models/entidades/assessor";
+import {Assessor} from "../../models/entidades/assessor.entity";
 import {AssessorService} from "./assessor.service";
 
 @Injectable({
@@ -33,7 +33,6 @@ export class AuthService {
         const usuarioResponse = AuthService.decodeToken(token!);
         usuarioResponse.token = token;
         this.assessorService.salvar(new Assessor(
-          null!,
           usuarioResponse.nome,
           '',
           usuarioResponse.token,

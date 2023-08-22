@@ -23,7 +23,11 @@ const routes: Routes = [
   {
     path: 'carteira',
     loadChildren: () => import('./cliente/carteira/carteira.module').then( m => m.CarteiraPageModule)
+  },  {
+    path: 'sincronizacao',
+    loadChildren: () => import('./sincronizacao/sincronizacao.module').then( m => m.SincronizacaoPageModule)
   }
+
 
 ];
 

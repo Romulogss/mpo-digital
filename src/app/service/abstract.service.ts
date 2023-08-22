@@ -1,8 +1,7 @@
-import {DataSource, EntityTarget, FindOptionsWhere, ObjectLiteral, Repository} from "typeorm";
+import {BaseEntity, FindOptionsWhere, Repository} from "typeorm";
 import {DatabaseProvider} from "../../utils/database";
-import {Assessor} from "../../models/entidades/assessor";
 
-export abstract class AbstractService<T extends ObjectLiteral> {
+export abstract class AbstractService<T extends BaseEntity> {
   protected repository: Repository<T> = null!;
 
   protected constructor(
@@ -15,6 +14,7 @@ export abstract class AbstractService<T extends ObjectLiteral> {
     if (this.repository == null) {
       // @ts-ignore
       this.repository = this.db.dataSource.getRepository<T>(this.entityType);
+      console.log(new this.entityType())
     }
   }
 
@@ -29,7 +29,7 @@ export abstract class AbstractService<T extends ObjectLiteral> {
     return this.repository.findOneBy({id});
   }
 
-  buscarTodo(): Promise<T[]> {
+  buscarTodos(): Promise<T[]> {
     this.criarRepo();
     return this.repository.find();
   }

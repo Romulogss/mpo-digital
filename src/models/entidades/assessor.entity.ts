@@ -1,12 +1,10 @@
-// noinspection ES6UnusedImports
-
-import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToOne} from "typeorm";
+import {Carteira} from "./carteira";
+import {Synch, SynchType} from "../../utils/synch/synchronizable";
+import {SincronizavelAbstract} from "../../utils/synch/sincronizavel.entity.abstract";
 
 @Entity('assessor')
-export class Assessor {
-
-  @PrimaryGeneratedColumn({name: "id_assessor"})
-  id: number;
+export class Assessor extends SincronizavelAbstract {
 
   @Column({length: 60, name: "no_assessor", nullable: true})
   nome: string;
@@ -36,19 +34,23 @@ export class Assessor {
   @Column({name: 'lg_senha_provisoria', nullable: true})
   senhaProvisoria: boolean;
 
+  @Synch(SynchType.ENTITY)
+  @OneToOne(type => Carteira, carteira => carteira.assessor, {cascade: true, nullable: true, eager: true})
+  carteira: Carteira = new Carteira();
 
-  constructor(id: number, nome: string, cpf: string, token: string, exp: number, cdUsu: string, uuid: string,
-              ultimaAtualizacao: number, sincronizado: boolean, senhaProvisoria: boolean) {
-    this.id = id;
-    this.nome = nome;
-    this.cpf = cpf;
-    this.token = token;
-    this.exp = exp;
-    this.cdUsu = cdUsu;
-    this.uuid = uuid;
-    this.ultimaAtualizacao = ultimaAtualizacao;
-    this.sincronizado = sincronizado;
-    this.senhaProvisoria = senhaProvisoria;
+
+  constructor(nome?: string, cpf?: string, token?: string, exp?: number, cdUsu?: string, uuid?: string,
+              ultimaAtualizacao?: number, sincronizado?: boolean, senhaProvisoria?: boolean) {
+    super(null!)
+    this.nome = nome!;
+    this.cpf = cpf!;
+    this.token = token!;
+    this.exp = exp!;
+    this.cdUsu = cdUsu!;
+    this.uuid = uuid!;
+    this.ultimaAtualizacao = ultimaAtualizacao!;
+    this.sincronizado = sincronizado!;
+    this.senhaProvisoria = senhaProvisoria!;
   }
 
   /* Metodos para a sincronizacao */
@@ -67,6 +69,10 @@ export class Assessor {
 
   setSynchronized(synchronized: boolean): void {
     this.sincronizado = synchronized;
+  }
+
+  getNome(): string {
+    return "";
   }
 
 }

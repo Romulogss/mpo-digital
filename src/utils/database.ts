@@ -1,9 +1,9 @@
 import {Platform} from "@ionic/angular";
 import {Injectable} from "@angular/core";
-import {Device} from "@capacitor/device";
 import {DataSource} from "typeorm";
-import {Assessor} from "../models/entidades/assessor";
+import {Assessor} from "../models/entidades/assessor.entity";
 import {MensagemService} from "../app/service/mensagem.service";
+import {Carteira} from "../models/entidades/carteira";
 
 @Injectable({
   providedIn: "root"
@@ -33,7 +33,7 @@ export class DatabaseProvider {
           synchronize: true,
           autoSave: true,
           entities: [
-            Assessor
+            Assessor, Carteira
           ],
           migrations: []
         })
