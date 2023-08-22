@@ -28,9 +28,10 @@ export class RotasService {
     },
     {title: 'Simulação', url: '/folder/trash', icon: 'cash-sharp', showInCardMenu: true, showInSideMenu: true},
     {title: 'Relatórios', url: '/folder/trash', icon: 'newspaper-sharp', showInCardMenu: true, showInSideMenu: true},
-    {title: 'Sincronização', url: '/folder/spam', icon: 'sync-sharp', showInCardMenu: true, showInSideMenu: true},
+    {title: 'Sincronização', url: '/sincronizacao', icon: 'sync-sharp', showInCardMenu: true, showInSideMenu: true},
     {title: 'Sair', url: '', icon: 'power-sharp', showInCardMenu: false, showInSideMenu: true},
-  ]
+  ];
+  public atualMenu: MenuItemInterface;
 
   constructor(
     private router: Router,
@@ -46,12 +47,22 @@ export class RotasService {
     return this.appPages.filter(menu => menu.showInCardMenu)
   }
 
+  public selecionarMenuAtual(menu: MenuItemInterface): void {
+    this.atualMenu = menu;
+  }
+
+  public obterRotaAtual() {
+    return this.router.url
+  }
+
   public irPara(path: string) {
     if (!path.startsWith('/')) path = '/' + path
+    this.atualMenu = this.appPages.find(menu => menu.url === path)!
     this.router.navigate([`${path}`])
   }
 
   public irParaTelaInicial() {
+    this.atualMenu = this.appPages.find(menu => menu.url === '/home')!
     this.authService.isAutenticate().then(ativo => {
       if (ativo) {
         this.router.navigate(['/home'])

@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(
     platform: Platform,
     private dataBase: DatabaseProvider,
-    private rotaService: RotasService,
+    public rotaService: RotasService,
   ) {
     platform.ready().then(async () => {
       await dataBase.configurarDatabase(platform).then((res) => {
@@ -28,5 +28,9 @@ export class AppComponent {
 
   public sair() {
     this.rotaService.sair();
+  }
+
+  get showMenu(): boolean {
+    return !(this.rotaService.obterRotaAtual() === '/login' || this.rotaService.obterRotaAtual() === '/')
   }
 }
