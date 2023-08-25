@@ -1,0 +1,108 @@
+<ion-content [fullscreen]="true" class="forms-examples-content">
+  <div class="post-example-view">
+    <form class="sample-form post-form" [formGroup]="service.form" (ngSubmit)="service.postForm()" #form="ngForm">
+      <ion-item-divider class="color-green-elipse">
+        <h5 class="section-title-white">1 - Visita de Prospecção</h5>
+      </ion-item-divider>
+      <ion-item-divider class="color-gray-linear">
+        <h5 class="section-title ion-text-wrap">{{'Status: ' + service.cliente?.dscSituacaoAtual}}</h5>
+      </ion-item-divider>
+      <ion-item-divider class="color-gray-linear">
+        <h5 class="section-title">1.1 Dados de Contato</h5>
+      </ion-item-divider>
+      <section class="form-section">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-select formControlName="objetivoDoCredito"
+                          style="width: 100%; max-width: 100%"
+                          fill="outline" label="Objetivo do Crédito" label-placement="floating"
+                          cancelText="{{ 'Cancelar' }}"
+                          okText="{{ 'Confirmar' }}">
+                <ion-select-option *ngFor="let objetivo of service.listaObjetivosDeCredito"
+                                   [value]="objetivo.nome">{{objetivo.descricao}}</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-select formControlName="tipoPessoa"
+                          fill="outline" label="Tipo Pessoa" label-placement="floating"
+                          cancelText="{{ 'Cancelar' }}"
+                          okText="{{ 'Confirmar' }}">
+                <ion-select-option *ngFor="let tipoPessoa of service.listaTipoPessoa"
+                                   [value]="tipoPessoa.nome">{{tipoPessoa.descricao}}</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-input formControlName="nomeCompleto" type="text" fill="outline" label="Nome" label-placement="floating"
+                         maxlength="60"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input type="text" formControlName="nomeAbreviado" fill="outline" label="Nome Fantasia"
+                         label-placement="floating"
+                         maxlength="300"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-input formControlName="cpfCnpj" fill="outline" label="C.P.F" [maskito]="service.MASCARAS.CPF" [maskitoElement]="service.maskPredicate"
+                         label-placement="floating"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="!service.isPF">
+            <ion-col size="12">
+              <ion-input formControlName="cnpj" fill="outline" label="C.N.P.J" [maskito]="service.MASCARAS.CNPJ" [maskitoElement]="service.maskPredicate"
+                         label-placement="floating"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="8">
+              <ion-input formControlName="email" type="email" fill="outline" label-placement="floating">
+                <div slot="label">E-mail
+                  <ion-icon name="at-outline"></ion-icon>
+                </div>
+              </ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-toggle formControlName="isEmailProprio" mode="ios" justify="space-between">Próprio?</ion-toggle>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </section>
+      <section>
+        <ion-grid>
+          <ion-item-divider class="color-gray-linear">
+            <h5 class="section-title">1.2 Atividade</h5>
+          </ion-item-divider>
+          <ion-row>
+            <ion-col size="12">
+              <ion-select formControlName="codigoSetor"
+                          fill="outline" label="Setor" label-placement="floating"
+                          cancelText="{{ 'Cancelar' }}"
+                          okText="{{ 'Confirmar' }}">
+                <ion-select-option *ngFor="let setor of service.setores"
+                                   [value]="setor.id">{{ setor.descricao }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </section>
+    </form>
+  </div>
+</ion-content>
+
+<ion-fab slot="fixed" horizontal="end" vertical="bottom" #fab>
+  <ion-fab-button color="walkthrough">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button color="walkthrough" (click)="form.ngSubmit.emit(); ;fab.close()" data-desc="Salvar">
+      <ion-icon name="save-sharp"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
