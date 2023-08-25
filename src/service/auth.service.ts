@@ -32,27 +32,41 @@ export class AuthService {
       this._realizarLogin(login).subscribe(token => {
         const usuarioResponse = AuthService.decodeToken(token!);
         usuarioResponse.token = token;
-        this.assessorService.salvar(new Assessor(
-          usuarioResponse.nome,
-          '',
-          usuarioResponse.token,
-          usuarioResponse.exp,
-          login.login,
-          usuarioResponse.uuid,
-          new Date().valueOf(),
-          false,
-          false
-        )).then(async a => {
-          await Preferences.set({
-            key: '@cdUsu',
-            value: login.login
+        this.assessorService.buscarPor({
+          cdUsu: login.login
+        }).then(assessor => {
+          if (assessor.length > 0) {
+            this.usuarioLogado = assessor[0];
+            this.usuarioLogado.token = token;
+            this.usuarioLogado.exp = usuarioResponse.exp;
+            this.usuarioLogado.uuid = usuarioResponse.uuid;
+            this.usuarioLogado.sincronizado = false;
+            this.usuarioLogado.senhaProvisoria = false;
+          } else {
+            this.usuarioLogado = new Assessor(
+              usuarioResponse.nome,
+              '',
+              usuarioResponse.token,
+              usuarioResponse.exp,
+              login.login,
+              usuarioResponse.uuid,
+              new Date().valueOf(),
+              false,
+              false
+            )
+          }
+          this.assessorService.salvar(this.usuarioLogado).then(async a => {
+            await Preferences.set({
+              key: '@cdUsu',
+              value: login.login
+            })
+            this.usuarioLogado = a;
+            observable.next(this.usuarioLogado)
+            observable.complete()
+          }).catch(err => {
+            observable.error(err)
+            observable.complete()
           })
-          this.usuarioLogado = a;
-          observable.next(this.usuarioLogado)
-          observable.complete()
-        }).catch(err => {
-          observable.error(err)
-          observable.complete()
         })
       })
     })
@@ -86,7 +100,7 @@ export class AuthService {
           ativo = false
         }
       }
-      resolve(ativo);
+      resolve(true);
     })
   }
 

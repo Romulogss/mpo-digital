@@ -8,13 +8,16 @@ export abstract class AbstractService<T extends BaseEntity> {
     protected db: DatabaseProvider,
     private entityType: new () => T
   ) {
+    this.criarRepo()
   }
 
   private criarRepo() {
     if (this.repository == null) {
       // @ts-ignore
-      this.repository = this.db.dataSource.getRepository<T>(this.entityType);
-      console.log(new this.entityType())
+      this.db.dataSource$.subscribe(ds => {
+        if (ds)
+          this.repository = ds.getRepository(this.entityType)
+      })
     }
   }
 

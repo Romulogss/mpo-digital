@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 
@@ -16,24 +16,30 @@ import {LoginPage} from "./login/login.page";
 import "reflect-metadata";
 import {DatabaseProvider} from "../utils/database";
 import {RotasService} from "../service/rotas.service";
+import {ClienteTabsPageModule} from "./cliente/cliente-tabs/cliente-tabs.module";
+import {provideEnvironmentNgxMask} from "ngx-mask";
+import {MaskitoModule} from "@maskito/angular";
 
 @NgModule({
   declarations: [AppComponent, LoginPage],
     imports: [
         CommonModule,
         BrowserModule,
-        IonicModule.forRoot(),
         AppRoutingModule,
         HttpClientModule,
         HomePageModule,
+        ClienteTabsPageModule,
         ReactiveFormsModule,
         NgOptimizedImage,
+        MaskitoModule,
+        IonicModule.forRoot(),
     ],
   providers: [{
     provide: RouteReuseStrategy,
     useClass: IonicRouteStrategy
   }, EnvService, AuthService, RotasService, DatabaseProvider],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }

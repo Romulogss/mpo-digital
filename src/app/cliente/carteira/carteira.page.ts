@@ -6,6 +6,8 @@ import {FiltroClienteInterface} from "../../../models/interfaces/filtro-cliente.
 import {LogicoEnum, SituacaoClienteEnum} from "../../../models/enums/enums-types";
 import {AuthService} from "../../../service/auth.service";
 import {MensagemService} from "../../../service/mensagem.service";
+import {RotasService} from "../../../service/rotas.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-carteira',
@@ -27,11 +29,17 @@ export class CarteiraPage implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private authService: AuthService,
-    private msgService: MensagemService
+    private msgService: MensagemService,
+    private rotasService: RotasService,
+    private router: Router
   ) {
   }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    this.filterClientes()
   }
 
   filterClientes() {
@@ -44,23 +52,27 @@ export class CarteiraPage implements OnInit {
       .then(dados => {
         this.jaVerificouDias = false;
         this.clientes = dados
-        // this.verificarDiasAguardandoDocumentos()
       })
       .catch(erro => console.log(erro));
   }
 
   removeCliente(cliente: Cliente) {
-    Cliente.buscarClienteCompleto(cliente.uuid).then(clienteDb => {
+    this.clienteService.buscarClienteCompleto(cliente.uuid).then(clienteDb => {
       clienteDb.excluido = true;
       clienteDb.arquivado = LogicoEnum.SIM.nome;
       this.clienteService.salvar(clienteDb).then(() => {
-        console.log('excluiu logicamente');
         this.msgService.apresentarMensagemSucesso();
         this.filterClientes();
       })
         .catch(error => console.log(error));
     }).catch(err => {
       console.log('Ocrreu um erro ao remover cliente: ', err);
+    })
+  }
+
+  goToTabs(idCliente?: number) {
+    this.router.navigate(['/cliente', idCliente], {
+      queryParams: {idCliente}
     })
   }
 

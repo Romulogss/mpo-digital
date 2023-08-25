@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MenuItemInterface} from "../models/interfaces/menu-item.interface";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "./auth.service";
 
 @Injectable({
@@ -35,6 +35,7 @@ export class RotasService {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService
   ) {
   }
@@ -55,10 +56,13 @@ export class RotasService {
     return this.router.url
   }
 
-  public irPara(path: string) {
+  public irPara(path: string, parametro?: any) {
     if (!path.startsWith('/')) path = '/' + path
     this.atualMenu = this.appPages.find(menu => menu.url === path)!
-    this.router.navigate([`${path}`])
+    if (parametro === undefined)
+      this.router.navigate([`${path}`])
+    else
+      this.router.navigate([`${path}`, parametro!])
   }
 
   public irParaTelaInicial() {

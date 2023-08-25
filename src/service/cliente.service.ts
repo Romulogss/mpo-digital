@@ -7,7 +7,6 @@ import {ClienteParticipanteInterface} from "../models/interfaces/cliente-partici
 import {Assessor} from "../models/entidades/assessor.entity";
 import {Carteira} from "../models/entidades/carteira";
 import {AuthService} from "./auth.service";
-import {getManager} from "typeorm";
 
 @Injectable({
   providedIn: 'root'
@@ -136,7 +135,8 @@ export class ClienteService extends AbstractService<Cliente> {
       .getRawOne();
   }
 
-  buscarClienteCompleto(uuid: string): Promise<Cliente> {
+  buscarClienteCompleto(uuid?: string, id?: number): Promise<Cliente> {
+    const where = AppUtils.strNotEmptyOrNull(uuid) ? `cliente.uuid = '${uuid}'` : `cliente.id = ${id}`
     return this.repository.createQueryBuilder("cliente")
       .leftJoinAndSelect("cliente.situacaoSocioeconomica", "situacaoSocioeconomica")
       .leftJoinAndSelect("cliente.arquivos", "arquivos")

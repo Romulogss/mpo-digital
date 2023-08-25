@@ -20,8 +20,7 @@ export class AppComponent {
     platform.ready().then(async () => {
       await dataBase.configurarDatabase(platform).then((res) => {
         this.appPages = this.rotaService.sideMenu();
-        if (res)
-          rotaService.irParaTelaInicial();
+        rotaService.irParaTelaInicial();
       })
     })
   }

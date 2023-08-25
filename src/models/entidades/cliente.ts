@@ -50,10 +50,6 @@ import {RestritivoItem} from "../model/restritivo-item.model";
 ;
 
 @Entity('cliente')
-/*
-@Unique(["cpfCnpj"])
-*/
-
 export class Cliente extends BaseEntity {
 
   @Synch()

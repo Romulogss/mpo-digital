@@ -2,13 +2,82 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
+
+$white: #FFFFFF;
+$white-a: darken($white, 3%);
+$white-b: darken($white, 6%);
+$white-c: darken($white, 12%);
+$white-d: darken($white, 24%);
+
+$black: rgba(#000000, .8);
+$black-a: lighten($black, 10%);
+$black-b: lighten($black, 20%);
+$black-c: lighten($black, 40%);
+$black-d: lighten($black, 60%);
+
+
 $theme-color-1: #0c5a79;
 $theme-color-2: #233F66;
 $theme-color-3: #000000;
 
 :root {
+
+  --white: #FFFFFF;
+  --white-rgb: 255, 255, 255;
+  --white-a: darken(var(--white), 3%);
+  --white-b: darken(--white, 6%);
+  --white-c: darken(--white, 12%);
+  --white-d: darken(--white, 24%);
+
+  --black: rgba(#000000, .8);
+  --black-a: lighten(--black, 10%);
+  --black-b: lighten(--black, 20%);
+  --black-c: lighten(--black, 40%);
+  --black-d: lighten(--black, 60%);
+
+
+  --theme-color-1: #0c5a79;
+  --theme-color-1-rgb: 12, 90, 121;
+  --theme-color-2: #233F66;
+  --theme-color-2-rgb: 35, 63, 102;
+  --theme-color-3: #000000;
+  --theme-color-3-rgb: 255, 255, 255;
+
+
+  /** walkthrough **/
+  --ion-color-walkthrough: var(--theme-color-1);
+  --ion-color-walkthrough-rgb: var(--theme-color-1-rgb);
+  --ion-color-walkthrough-contrast: var(--white);
+  --ion-color-walkthrough-contrast-rgb: var(--white-rgb);
+
+  --ion-color-walkthrough-alt: var(--theme-color-2);
+  --ion-color-walkthrough-alt-rgb: var(--theme-color-2-rgb);
+  --ion-color-walkthrough-alt-contrast: var(--white);
+  --ion-color-walkthrough-alt-contrast-rgb: var(--white-rgb);
+
+  /** header **/
+  --ion-color-header: var(--theme-color-1);
+  --ion-color-header-rgb: var(--theme-color-1-rgb);
+  --ion-color-header-contrast: #FFFFFF;
+  --ion-color-header-contrast-rgb: 255, 255, 255;
+
+  /** button **/
+  --ion-color-button: var(--theme-color-1);
+  --ion-color-button-rgb: var(--theme-color-1-rgb);
+  --ion-color-button-contrast: #FFFFFF;
+  --ion-color-button-contrast-rgb: 255, 255, 255;
+
+  --ion-color-button-alt: var(--theme-color-2);
+  --ion-color-button-alt-rgb: var(--theme-color-2-rgb);
+  --ion-color-button-alt-contrast: #FFFFFF;
+  --ion-color-button-alt-contrast-rgb: 255, 255, 255;
+
+  /** background **/
+  --ion-color-background: var(--white-a);
+  --ion-color-background-contrast: var(--black-b);
+
   /** primary **/
-  --ion-color-primary: #3880FF;
+  --ion-color-primary: #387ef5;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;

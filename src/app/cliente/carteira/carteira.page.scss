@@ -1,0 +1,48 @@
+.ion-color-walkthrough {
+  --ion-color-base: var(--ion-color-walkthrough);
+  --ion-color-base-rgb: var(--ion-color-walkthrough-rgb);
+}
+
+.fab {
+  contain: initial !important;
+}
+
+ion-fab {
+  ion-fab-list ion-fab-button {
+    overflow: visible !important;
+    div.label {
+      position: absolute !important;
+      content: attr(data-desc);
+      right: 55px;
+      bottom: 4px;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.7) !important;
+      height: 24px !important;
+      line-height: 16px !important;
+      padding: 5px 8px !important;
+      border-radius: 3px !important;
+      color: #fff !important;
+      box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1) !important;
+    }
+  }
+
+  ion-fab-button[data-desc] {
+    position: relative;
+  }
+
+  ion-fab-button[data-desc]::after {
+    position: absolute !important;
+    content: attr(data-desc);
+    right: 55px;
+    bottom: 4px;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.7) !important;
+    height: 24px !important;
+    line-height: 16px !important;
+    padding: 5px 8px !important;
+    border-radius: 3px !important;
+    color: #fff !important;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1) !important;
+  }
+
+}

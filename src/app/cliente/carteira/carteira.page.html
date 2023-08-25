@@ -13,7 +13,24 @@
     <ion-select [(ngModel)]="filtro.situacao" label-placement="floating" label="Situação"
                 cancelText="{{ 'Cancelar' }}" okText="{{ 'Confirmar' }}">
       <ion-select-option [value]="null">{{'Todas'}}</ion-select-option>
-      <ion-select-option *ngFor="let situacao of situacoesCliente" [value]="situacao.nome">{{situacao.descricao}}</ion-select-option>
+      <ion-select-option *ngFor="let situacao of situacoesCliente"
+                         [value]="situacao.nome">{{situacao.descricao}}</ion-select-option>
     </ion-select>
   </ion-item>
 </ion-content>
+<ion-fab slot="fixed" horizontal="end" vertical="bottom" #fab>
+  <ion-fab-button color="walkthrough">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button color="walkthrough" (click)="fab.close()" data-desc="Sincronizar Clientes">
+      <ion-icon name="sync-sharp"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="walkthrough" (click)="fab.close()" data-desc="Buscar Novo Cliente">
+      <ion-icon name="person-add-sharp"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="walkthrough" (click)="goToTabs(0)" data-desc="Cadastrar Avalista" >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>

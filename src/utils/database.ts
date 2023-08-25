@@ -19,6 +19,7 @@ import {Identificacao} from "../models/entidades/identificacao";
 import {Ocupacao} from "../models/entidades/ocupacao";
 import {Sincronizacao} from "../models/entidades/sincronizacao";
 import {Referencia} from "../models/entidades/referencia";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -27,6 +28,7 @@ export class DatabaseProvider {
 
   //@ts-ignore
   dataSource: DataSource = null!
+  private _dataSourceSubject: BehaviorSubject<DataSource> = new BehaviorSubject<DataSource>(this.dataSource);
 
   constructor(
     private msgService: MensagemService,
@@ -35,6 +37,7 @@ export class DatabaseProvider {
     if (this.dataSource == null) {
       this.configurarDatabase(platform)
     }
+    this._dataSourceSubject.next(this.dataSource)
   }
 
   async configurarDatabase(platform: Platform) {
@@ -54,8 +57,8 @@ export class DatabaseProvider {
           ],
           migrations: []
         })
-        AppDataSource.initialize().then(r => {
-          this.dataSource = r
+        AppDataSource.initialize().then(dataSource => {
+          this.updateDataSource(dataSource)
           resolve(true)
         }).catch(err => {
           this.msgService.showAlertMensagem('Erro')
@@ -67,5 +70,14 @@ export class DatabaseProvider {
         console.log(error);
       }
     })
+  }
+
+  updateDataSource(dataSource: DataSource) {
+    this.dataSource = dataSource;
+    this._dataSourceSubject.next(dataSource);
+  }
+
+  get dataSource$(): Observable<DataSource> {
+    return this._dataSourceSubject.asObservable();
   }
 }

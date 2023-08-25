@@ -1,3 +1,5 @@
+@import "bourbon";
+
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
@@ -120,4 +122,114 @@ ion-item.selected {
 
 .menu-margin {
   margin-top: 55px;
+}
+
+.ion-color-walkthrough {
+  --ion-color-base: var(--ion-color-walkthrough);
+  --ion-color-base-rgb: var(--ion-color-walkthrough-rgb);
+}
+
+ion-icon {
+  &[class*="extra-"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+
+}
+
+ion-loading.transparent {
+  .loading-wrapper {
+    background: transparent;
+    box-shadow: none;
+
+    .spinner-crescent circle {
+      stroke-width: 8px;
+    }
+  }
+}
+
+@media only screen and (orientation: landscape)  {
+  .my-modal {
+    .modal-wrapper {
+      position: absolute;
+      top: 0 !important;
+      left: 0 !important;
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+}
+
+.sem-registros {
+  padding       : 20px;
+  text-align    : center;
+  font-size     : 1.3rem;
+  color         : #fff;
+  letter-spacing: 1px;
+  width         : 100%;
+  margin-top    : 20px;
+
+  h2 {
+    font-size  : 1.6rem !important;
+    color      : #fff;
+    font-weight: 600;
+  }
+
+  ion-icon {
+    font-size: 5rem;
+    color    : #fff;
+  }
+}
+
+.alert-radio-label {
+  white-space: normal !important;
+}
+
+.select-text {
+  white-space: normal !important;
+}
+
+ion-fab {
+  ion-fab-list ion-fab-button {
+    overflow: visible !important;
+    div.label {
+      position: absolute !important;
+      content: attr(data-desc);
+      right: 55px;
+      bottom: 4px;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.7) !important;
+      height: 24px !important;
+      line-height: 16px !important;
+      padding: 5px 8px !important;
+      border-radius: 3px !important;
+      color: #fff !important;
+      box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1) !important;
+    }
+  }
+
+  ion-fab-button[data-desc] {
+    position: relative;
+  }
+
+  ion-fab-button[data-desc]::after {
+    position: absolute !important;
+    content: attr(data-desc);
+    right: 55px;
+    bottom: 4px;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.7) !important;
+    height: 24px !important;
+    line-height: 16px !important;
+    padding: 5px 8px !important;
+    border-radius: 3px !important;
+    color: #fff !important;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1) !important;
+  }
+
 }
