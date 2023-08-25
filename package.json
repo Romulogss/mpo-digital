@@ -48,7 +48,8 @@
     "text-mask-core": "^5.1.2",
     "tslib": "^2.3.0",
     "typeorm": "^0.3.17",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.13.0",
+    "cpf-cnpj-validator": "^1.0.3"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^16.0.0",

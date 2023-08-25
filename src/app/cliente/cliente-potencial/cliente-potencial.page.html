@@ -49,13 +49,12 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col size="12">
-              <ion-input formControlName="cpfCnpj" fill="outline" label="C.P.F" [maskito]="service.MASCARAS.CPF" [maskitoElement]="service.maskPredicate"
+            <ion-col size="5" style="padding: 5px 0 5px 5px">
+              <ion-input formControlName="cpfCnpj" fill="outline" label="C.P.F" [maskito]="service.MASCARAS.CPF"
+                         [maskitoElement]="service.maskPredicate"
                          label-placement="floating"></ion-input>
             </ion-col>
-          </ion-row>
-          <ion-row *ngIf="!service.isPF">
-            <ion-col size="12">
+            <ion-col size="7" *ngIf="!service.isPF">
               <ion-input formControlName="cnpj" fill="outline" label="C.N.P.J" [maskito]="service.MASCARAS.CNPJ" [maskitoElement]="service.maskPredicate"
                          label-placement="floating"></ion-input>
             </ion-col>
